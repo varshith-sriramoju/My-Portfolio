@@ -1,0 +1,60 @@
+<!-- html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="hero-section">
+    <section class="hero" id="home">
+        <div class="hero-background"></div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="hero-greeting">Hi there, I'm</div>
+                <h1 class="hero-title"><span class="gradient-text">Varshith Sriramoju</span></h1>
+            <!--    <h2 class="hero-subtitle">Full Stack Java Developer | Cloud-Native Applications | Selenium Automation </h2> -->
+                <p class="hero-description">
+                    Full Stack Java Developer skilled in Spring Boot, React, REST APIs, and cloud-native deployments on Google Cloud Platform.Experienced with Docker, MySQL, secure authentication (JWT/OAuth), and automation testing using Selenium & Cucumber.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        View My Work <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-outline">
+                        Get In Touch
+                    </a>
+                    <a class="btn btn-secondary" href="/resume/VarshithResume.pdf" target="_blank" rel="noopener" aria-label="Open resume in a new tab">
+                        Resume
+                    </a>
+                </div>
+                <div class="social-links">
+                    <a href="tel:+919381429861" class="social-link" aria-label="Phone">
+                        <i class="fas fa-phone-alt"></i>
+                    </a>
+                    <a href="mailto:sriramoju.varshith@outlook.com" class="social-link" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/varshith-sriramoju-58141221b/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/varshith-sriramoju" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-visual-inner">
+                    <div class="hero-visual-frame">
+                        <img src="/images/profile.jpg" alt="Varshith profile" style="width: 90%; height: 90%; object-fit: cover; border-radius: 15px;">
+                    </div>
+                    <div class="hero-visual-frame"></div>
+                    <div class="hero-visual-frame"></div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="scroll-indicator-line">
+                <div class="scroll-indicator-dot"></div>
+            </div>
+        </div>
+    </section>
+</th:block>
+</html>

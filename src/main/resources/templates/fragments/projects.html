@@ -1,0 +1,108 @@
+<!-- html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="projects-section">
+    <section class="section projects" id="projects">
+        <div class="container">
+            <div class="section-title-container">
+                <h2 class="section-title">My Work</h2>
+                <p class="section-subtitle">
+                    Selected projects, videos, and courses in Java / Spring Boot
+                </p>
+            </div>
+
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/images/SIMS.png" alt="Udemy course thumbnail" loading="lazy">
+                        <div class="project-overlay"></div>
+                        <div class="project-tags">
+                            <span class="project-tag">Spring Boot</span>
+                            <span class="project-tag">Spring Security</span>
+                            <span class="project-tag">Data JPA</span>
+                            <span class="project-tag">MySQL</span>
+                            <span class="project-tag">Google Cloud</span>
+                            <span class="project-tag">Docker</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Smart Inventory Management System(SIMS)</h3>
+                        <p class="project-description">
+                            Built a Spring Boot inventory system with secure auth, REST APIs, real-time analytics, and
+                            cloud deployment on Google Cloud Run and hosted from Netlify. </p>
+                        <div class="project-links">
+                            <a href="https://github.com/varshith-sriramoju/Smart-Inventory-Management-System-Spring-Boot"
+                               class="project-link" target="_blank" rel="noopener" aria-label="View code on GitHub">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <a href="https://smartinventorysystems.netlify.app/" class="project-link" target="_blank"
+                               rel="noopener" aria-label="Open Udemy course">
+                                Live Demo <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/images/GCP.png" alt="Udemy course thumbnail" loading="lazy">
+                        <div class="project-overlay"></div>
+                        <div class="project-tags">
+                            <span class="project-tag">Google Cloud Platform</span>
+                            <span class="project-tag">Google Drive API</span>
+                            <span class="project-tag">React.js</span>
+                            <span class="project-tag">MySQL</span>
+                            <span class="project-tag">Node.js</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Full Stack Google Cloud Video Testimonial Platform</h3>
+                        <p class="project-description">
+                            A full-stack web application to record video testimonials and upload them
+                            securely to a specified Google Drive using Google Cloud Platform(GCP). </p>
+                        <div class="project-links">
+                            <a href="https://github.com/varshith-sriramoju/Full-Stack-Google-Cloud-Video-Testimonial-Platform-"
+                               class="project-link" target="_blank" rel="noopener" aria-label="View code on GitHub">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <a href="https://videotetimonialtool.netlify.app/" class="project-link" target="_blank"
+                               rel="noopener" aria-label="Open Udemy course">
+                                Live Demo <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/images/Selenium.png" alt="Udemy course thumbnail" loading="lazy">
+                        <div class="project-overlay"></div>
+                        <div class="project-tags">
+                            <span class="project-tag">Selenium WebDriver</span>
+                            <span class="project-tag">Cucumber</span>
+                            <span class="project-tag">Gherkin</span>
+                            <span class="project-tag">Junit</span>
+                            <span class="project-tag">Maven</span>
+                            <span class="project-tag">POM</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Selenium Cucumber Tests - Java + Selenium</h3>
+                        <p class="project-description">
+                            A maintainable Java-based E2E automation suite using Cucumber, Selenium WebDriver, tests are executed by Junit and reported as HTML/JSON. </p>
+                        <div class="project-links">
+                            <a href="https://github.com/varshith-sriramoju/SeleniumCucumberTests"
+                               class="project-link" target="_blank" rel="noopener" aria-label="View code on GitHub">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <!--
+                            <a href="https://videotetimonialtool.netlify.app/" class="project-link" target="_blank"
+                               rel="noopener" aria-label="Open Udemy course">
+                                Live Demo <i class="fas fa-arrow-right"></i>
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+</html>

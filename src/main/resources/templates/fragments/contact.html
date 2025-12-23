@@ -1,0 +1,100 @@
+<!-- html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="contact-section">
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-title-container">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">
+                    Open to backend and full stack Java Spring Boot roles, collaboration, and freelance work.
+                </p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3 class="contact-heading">Let's build reliable services together</h3>
+                    <p class="contact-text">
+                        I focus on Java, Spring Boot, REST APIs, and data driven solutions. Reach out for roles, projects, or technical collaboration.
+                    </p>
+
+                    <div class="contact-links">
+                        <a href="mailto:sriramoju.varshith@outlook.com" class="contact-link">
+                            <div class="contact-link-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-link-text">
+                                <span class="contact-link-label">Email</span>
+                                <span class="contact-link-value">sriramoju.varshith@outlook.com</span>
+                            </div>
+                        </a>
+
+                        <a href="https://github.com/varshith-sriramoju" target="_blank" rel="noopener" class="contact-link">
+                            <div class="contact-link-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="contact-link-text">
+                                <span class="contact-link-label">GitHub</span>
+                                <span class="contact-link-value">varshith-sriramoju</span>
+                            </div>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/varshith-sriramoju-58141221b/" target="_blank" rel="noopener" class="contact-link">
+                            <div class="contact-link-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </div>
+                            <div class="contact-link-text">
+                                <span class="contact-link-label">LinkedIn</span>
+                                <span class="contact-link-value">varshith-sriramoju</span>
+                            </div>
+                        </a>
+
+                        <a href="tel:+919381429861" class="contact-link">
+                            <div class="contact-link-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-link-text">
+                                <span class="contact-link-label">Phone</span>
+                                <span class="contact-link-value">+91 9381429861</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="contact-actions" style="margin-top:1rem;">
+                        <a class="btn btn-primary" href="/resume/VarshithResume.pdf" target="_blank" rel="noopener">
+                            Download Resume
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form action="https://api.web3forms.com/submit" method="post">
+                        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY">
+                        <input type="hidden" name="subject" value="Portfolio contact: Varshith Sriramoju">
+                        <input type="checkbox" name="botcheck" style="display:none">
+
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" class="form-control" name="name" placeholder="varshith sriramoju" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" id="email" class="form-control" name="email" placeholder="sriramoju.varshith@outlook.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea id="message" class="form-control" name="message" placeholder="How can I help you?" rows="5" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            Send Message <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+</html>
