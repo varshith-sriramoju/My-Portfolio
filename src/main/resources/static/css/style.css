@@ -1291,30 +1291,46 @@ textarea.form-control { min-height: 150px; resize: vertical; }
     }
 }
 
+@media (max-width: 768px) {
+    /* Header: ensure spacing and readable logo */
+    .header-container { padding: 0 1rem; }
+    .logo { font-size: 1.5rem; }
+
+    /* Navigation: stack links if visible, keep gaps small */
+    .nav-links { flex-wrap: wrap; gap: 1rem; }
+    .nav-link { padding: 0.25rem 0; }
+}
+
 @media (max-width: 576px) {
-    .hero-title {
-        font-size: 2.2rem;
-    }
+    /* Hero: tighten typographic scale further for small phones */
+    .hero-title { font-size: 2rem; line-height: 1.15; }
+    .hero-subtitle { font-size: 1.05rem; }
+    .hero-description { font-size: 1rem; }
+}
 
-    .hero-subtitle {
-        font-size: 1.2rem;
-    }
+/* Project cards: allow natural height on mobile to avoid clipping */
+@media (max-width: 768px) {
+    .project-card { height: auto; }
+    .project-image { height: 200px; }
+}
 
-    .hero-greeting {
-        font-size: 1rem;
-    }
-
-    .about-heading,
-    .contact-heading {
-        font-size: 2rem;
-    }
-
+/* Ensure section titles don’t overflow narrow screens */
+@media (max-width: 576px) {
     .section-title {
-        font-size: 1.8rem;
-    }
-
-    /* Scope padding to experience timeline only */
-    .experience .timeline-content {
-        padding: 1.5rem;
+        max-width: 100%;
+        word-wrap: break-word;
+        white-space: normal;
     }
 }
+
+/* Contact links: prevent overflow and keep items readable */
+@media (max-width: 576px) {
+    .contact-link { flex-wrap: wrap; }
+    .contact-link-value { word-break: break-word; }
+}
+
+/* Footer links: prevent long text overflow */
+@media (max-width: 576px) {
+    .footer-link { flex-wrap: wrap; }
+}
+

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Oops! Something went wrong</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <style>
+        .error-wrapper { min-height: 70vh; display: flex; align-items: center; justify-content: center; }
+        .error-card { max-width: 720px; padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); text-align: center; }
+        .error-title { font-size: 1.6rem; margin-bottom: 0.75rem; }
+        .error-text { color: var(--text-light); margin-bottom: 1rem; }
+        .error-actions { display: flex; justify-content: center; gap: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="error-wrapper">
+        <div class="error-card">
+            <div class="error-title">Page not found or temporarily unavailable</div>
+            <p class="error-text">Please use the buttons below to return to the homepage or open the resume directly.</p>
+            <div class="error-actions">
+                <a class="btn btn-outline" href="/home">Go Home</a>
+                <a class="btn btn-primary" href="/resume?download=true">Download Resume</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
