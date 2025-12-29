@@ -27,7 +27,19 @@ gcloud app create --region=us-central
 gcloud services enable appengine.googleapis.com
 gcloud services enable cloudbuild.googleapis.com
 gcloud services enable storage.googleapis.com
+```
 
+### What do these service-enabling commands do (and do you need them)?
+- appengine.googleapis.com: Enables the App Engine API so your project can host and manage App Engine apps.
+- cloudbuild.googleapis.com: Enables Cloud Build, which App Engine uses behind the scenes to build/package your app during deploys.
+- storage.googleapis.com: Enables Cloud Storage features used for staging build artifacts (and any other GCS usage).
+
+Notes:
+- These are safe to run multiple times; if a service is already enabled, the command is a no-op.
+- In some projects, creating the App Engine app may auto-enable appengine.googleapis.com; still, enabling explicitly avoids surprises.
+- If you encountered the “staging bucket access” error, the APIs likely were enabled but IAM needed adjusting (see the fix section below).
+
+```powershell
 # Build and deploy
 .\mvnw.cmd clean package -DskipTests
 gcloud app deploy .\target\My-Portfolio-0.0.1-SNAPSHOT.jar
@@ -76,5 +88,6 @@ gcloud app services set-traffic default --splits VERSION_ID=1
 - Port: default 8080 locally. No need to set `server.port` on App Engine.
 - Error pages: custom templates are used instead of Whitelabel when routes are missing.
 - Custom domain: App Engine → Settings → Custom Domains (HTTPS auto-provisioned).
+- To check which services are enabled in your project: `gcloud services list --enabled`.
 
 That’s it—run, deploy, and update with the commands above. If you hit an error, copy the exact message and rerun the fix steps in the staging bucket section, or check logs.
