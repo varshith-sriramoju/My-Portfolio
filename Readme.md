@@ -129,6 +129,36 @@ $env:WEB3FORMS_ACCESS_KEY="paste-your-uuid-here"
 
 If you truly want `.env` support, you’d add a library and custom bootstrap to load it, but it’s not necessary and adds complexity. Stick to `app.yaml` for App Engine and environment variables/Secret Manager for production.
 
+## 2.3) Web3Forms setup (Send Message)
+To enable the Contact form, you must set your Web3Forms Access Key (UUID v4):
+
+- Get your key from https://web3forms.com/ (Dashboard → Access Key)
+- Local dev (PowerShell):
+```powershell
+$env:WEB3FORMS_ACCESS_KEY="paste-your-uuid-here"
+.\mvnw.cmd spring-boot:run
+```
+- App Engine (`app.yaml`):
+```yaml
+runtime: java17
+# ...
+env_variables:
+  WEB3FORMS_ACCESS_KEY: "paste-your-uuid-here"
+```
+- Spring config (`application.properties`) already reads the env var:
+```
+web3forms.access_key=${WEB3FORMS_ACCESS_KEY:}
+```
+- The contact template injects the key into the form automatically:
+```
+th:value="${@environment.getProperty('web3forms.access_key')}"
+```
+- Client-side validation will block submission if the key is missing/invalid.
+
+Verify:
+- View page source on the Contact page and ensure the hidden input value is your UUID (no spaces).
+- Submit a test message; Web3Forms should accept it if the key is valid.
+
 ## 3) Update content and redeploy
 Edit files, then rebuild and deploy.
 - Templates: `src/main/resources/templates/` (e.g., `home.html`, fragments)
