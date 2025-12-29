@@ -86,3 +86,35 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       });
   });
 });
+
+// Contact form: validate Web3Forms access_key (UUID v4) before submit
+(function() {
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  function initContactValidation() {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    const accessKeyInput = document.getElementById('web3formsAccessKey');
+    const errorBox = document.getElementById('formError');
+
+    form.addEventListener('submit', function(e) {
+      const key = (accessKeyInput?.value || '').trim();
+      if (!uuidRegex.test(key)) {
+        e.preventDefault();
+        if (errorBox) {
+          errorBox.style.display = 'block';
+          errorBox.textContent = 'Form submission failed. Configure a valid Web3Forms access_key (UUID) in the hidden field.';
+        }
+        const nameField = document.getElementById('name');
+        if (nameField) nameField.focus();
+      } else {
+        if (errorBox) errorBox.style.display = 'none';
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactValidation);
+  } else {
+    initContactValidation();
+  }
+})();

@@ -1,0 +1,23 @@
+runtime: java17
+instance_class: F1
+service: default
+
+handlers:
+  - url: /static
+    static_dir: static
+  - url: /favicon.ico
+    static_files: static/images/profile.jpg
+    upload: static/images/profile.jpg
+  - url: /.*
+    script: auto
+
+automatic_scaling:
+  min_instances: 0
+  max_instances: 2
+  target_cpu_utilization: 0.6
+  target_throughput_utilization: 0.7
+
+env_variables:
+  # Set your real Web3Forms UUID here (no quotes or spaces)
+  WEB3FORMS_ACCESS_KEY: "bbf8ebfd-a4ae-4023-bb7e-24712ad6bac3"
+

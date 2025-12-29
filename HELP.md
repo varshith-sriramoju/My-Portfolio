@@ -63,6 +63,72 @@ gsutil iam ch serviceAccount:YOUR_GCP_PROJECT_ID@appspot.gserviceaccount.com:rol
 gcloud app deploy .\target\My-Portfolio-0.0.1-SNAPSHOT.jar --bucket=$bucket
 ```
 
+## 2.1) App Engine env variables (for contact form)
+Set your Web3Forms UUID so the contact form can submit:
+```powershell
+# Option A: edit app.yaml
+# In app.yaml, set:
+# env_variables:
+#   WEB3FORMS_ACCESS_KEY: "8c2f0a2e-1234-4e9a-9abc-5f67d8901234"
+
+# Option B: deploy-time override (Cloud Build reads app.yaml by default, but you can override in some flows)
+# Typically for App Engine standard, set in app.yaml.
+```
+
+Deploy steps (recap):
+```powershell
+gcloud auth login
+gcloud config set project YOUR_PROJECT_ID
+gcloud app create --region=us-central
+
+gcloud services enable appengine.googleapis.com
+gcloud services enable cloudbuild.googleapis.com
+gcloud services enable storage.googleapis.com
+
+# Build locally (optional)
+.\mvnw.cmd clean package -DskipTests
+
+# Deploy (App Engine will use app.yaml)
+gcloud app deploy
+
+# Open the app
+gcloud app browse
+```
+
+Verify the contact key is present:
+- In the contact page source, confirm the hidden input has your UUID.
+- If empty, set WEB3FORMS_ACCESS_KEY in app.yaml and redeploy.
+
+Troubleshooting:
+- If you see the staging bucket error, grant Storage access to the App Engine default SA as shown earlier.
+- If contact submission still fails, double-check the UUID has no spaces and matches Web3Forms dashboard.
+
+## 2.2) Do I need a .env file?
+Short answer: No.
+- Spring Boot reads `application.properties`/`application.yml` and environment variables automatically; it does not load `.env` by default.
+- On App Engine Standard (Java), set env vars in `app.yaml` under `env_variables:`.
+- For production secrets, prefer Google Secret Manager (and inject via App Engine or Cloud Run) over committing them to source.
+
+Examples:
+- App Engine (`app.yaml`):
+```
+runtime: java17
+# ...
+env_variables:
+  WEB3FORMS_ACCESS_KEY: "paste-your-uuid-here"
+```
+- Spring config (`application.properties`):
+```
+web3forms.access_key=${WEB3FORMS_ACCESS_KEY:}
+```
+- Local dev (Windows PowerShell) without hardcoding:
+```powershell
+$env:WEB3FORMS_ACCESS_KEY="paste-your-uuid-here"
+.\mvnw.cmd spring-boot:run
+```
+
+If you truly want `.env` support, you’d add a library and custom bootstrap to load it, but it’s not necessary and adds complexity. Stick to `app.yaml` for App Engine and environment variables/Secret Manager for production.
+
 ## 3) Update content and redeploy
 Edit files, then rebuild and deploy.
 - Templates: `src/main/resources/templates/` (e.g., `home.html`, fragments)

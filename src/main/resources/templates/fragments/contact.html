@@ -60,7 +60,7 @@
                         </a>
                     </div>
 
-                    <div class="contact-actions" style="margin-top:1rem;">
+                    <div class="contact-actions" style="margin-top:1rem; display:flex; justify-content:center;">
                         <a class="btn btn-primary" href="/resume/VarshithResume.pdf" target="_blank" rel="noopener">
                             Download Resume
                         </a>
@@ -68,10 +68,12 @@
                 </div>
 
                 <div class="contact-form">
-                    <form action="https://api.web3forms.com/submit" method="post">
-                        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY">
+                    <form id="contactForm" action="https://api.web3forms.com/submit" method="post" novalidate>
+                        <!-- Read the key from configuration. If it is empty, validation in script.js will block submission. -->
+                        <input type="hidden" id="web3formsAccessKey" name="access_key" th:value="${@environment.getProperty('web3forms.access_key')}">
                         <input type="hidden" name="subject" value="Portfolio contact: Varshith Sriramoju">
                         <input type="checkbox" name="botcheck" style="display:none">
+                        <input type="hidden" name="redirect" value="/">
 
                         <div class="form-group">
                             <label for="name" class="form-label">Your Name</label>
@@ -88,7 +90,9 @@
                             <textarea id="message" class="form-control" name="message" placeholder="How can I help you?" rows="5" required></textarea>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">
+                        <div id="formError" style="color:#ff6b6b; margin-bottom:0.75rem; display:none; text-align:center;"></div>
+
+                        <button type="submit" class="btn btn-primary" style="display:block; margin:0 auto;">
                             Send Message <i class="fas fa-paper-plane"></i>
                         </button>
                     </form>
