@@ -152,6 +152,9 @@ a {
     }
 }
 
+/* Defensive: ensure loader overlay never captures clicks */
+.loader-wrapper { pointer-events: none; }
+
 /* Main layout */
 .container {
     width: 90%;
