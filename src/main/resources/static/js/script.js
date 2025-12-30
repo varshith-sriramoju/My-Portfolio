@@ -1,11 +1,15 @@
 // Loading Animation
 window.addEventListener('load', () => {
+  const loader = document.querySelector('.loader-wrapper');
+  if (!loader) return;
+  // Immediately disable pointer events so clicks work even before fade-out
+  loader.style.pointerEvents = 'none';
   setTimeout(() => {
-      document.querySelector('.loader-wrapper').style.opacity = '0';
+      loader.style.opacity = '0';
       setTimeout(() => {
-          document.querySelector('.loader-wrapper').style.display = 'none';
+          loader.style.display = 'none';
       }, 500);
-  }, 2000);
+  }, 1000); // slightly faster fade-out
 });
 
 //document.addEventListener('mousedown', () => {
@@ -19,6 +23,7 @@ window.addEventListener('load', () => {
 // Scrolled Header
 window.addEventListener('scroll', () => {
   const header = document.querySelector('.header');
+  if (!header) return;
   if (window.scrollY > 100) {
       header.classList.add('scrolled');
   } else {
@@ -43,7 +48,7 @@ const projectObserver = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 document.querySelectorAll('.project-card').forEach(card => {
-  projectObserver.observe(card);
+  if (card) projectObserver.observe(card);
 });
 
 const timelineObserver = new IntersectionObserver((entries) => {
@@ -55,7 +60,7 @@ const timelineObserver = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 document.querySelectorAll('.timeline-content').forEach(item => {
-  timelineObserver.observe(item);
+  if (item) timelineObserver.observe(item);
 });
 
 const achievementObserver = new IntersectionObserver((entries) => {
@@ -69,17 +74,18 @@ const achievementObserver = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 document.querySelectorAll('.achievement-card').forEach(card => {
-  achievementObserver.observe(card);
+  if (card) achievementObserver.observe(card);
 });
 
 // Smooth scroll
+// Do not intercept links that are buttons navigating to pages
+// Only handle in-page anchors
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      const target = href ? document.querySelector(href) : null;
+      if (!target) return; // let default behavior if target missing
       e.preventDefault();
-
-      const target = document.querySelector(this.getAttribute('href'));
-      if (!target) return;
-
       window.scrollTo({
           top: target.offsetTop - 100,
           behavior: 'smooth'

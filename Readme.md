@@ -80,7 +80,9 @@ Remove-Item -Recurse -Force -ErrorAction SilentlyContinue .\target\classes
 # 3) Redeploy to App Engine (uses Cloud Build and staging bucket)
 gcloud config set project YOUR_GCP_PROJECT_ID
 # Ensure services are enabled (safe to re-run)
-gcloud services enable appengine.googleapis.com; gcloud services enable cloudbuild.googleapis.com; gcloud services enable storage.googleapis.com
+gcloud services enable appengine.googleapis.com
+gcloud services enable cloudbuild.googleapis.com
+gcloud services enable storage.googleapis.com
 
 gcloud app deploy .\target\My-Portfolio-0.0.1-SNAPSHOT.jar --quiet
 
