@@ -1,6 +1,4 @@
-<!-- html -->
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!-- Hero fragment -->
 <th:block th:fragment="hero-section">
     <section class="hero" id="home">
         <div class="hero-background"></div>
@@ -41,11 +39,18 @@
             <div class="hero-visual">
                 <div class="hero-visual-inner">
                     <div class="hero-visual-frame">
-                        <img src="/images/profile.jpg" alt="Varshith profile" style="width: 90%; height: 90%; object-fit: cover; border-radius: 15px;">
+                        <img
+                            src="/images/profile.jpg"
+                            alt="Portrait of Varshith Sriramoju"
+                            width="800"
+                            height="800"
+                            loading="lazy"
+                            decoding="async"
+                            sizes="(max-width: 576px) 240px, (max-width: 768px) 300px, 400px"
+                            style="width: 90%; height: 90%; object-fit: cover; border-radius: 15px;">
                     </div>
                     <div class="hero-visual-frame"></div>
                     <div class="hero-visual-frame"></div>
-                </div>
                 </div>
             </div>
         </div>
@@ -57,4 +62,3 @@
         </div>
     </section>
 </th:block>
-</html>

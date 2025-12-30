@@ -63,6 +63,58 @@ gsutil iam ch serviceAccount:YOUR_GCP_PROJECT_ID@appspot.gserviceaccount.com:rol
 gcloud app deploy .\target\My-Portfolio-0.0.1-SNAPSHOT.jar --bucket=$bucket
 ```
 
+## 2.0) Replace deployed JAR (redeploy a new build)
+You don’t manually upload JARs to App Engine Standard; you redeploy, which creates a new version. To replace your current deployment with a new JAR:
+
+```powershell
+# From project root: F:\1\My-Portfolio
+
+# 1) Delete old local JAR and classes (optional but recommended)
+Remove-Item -Force -ErrorAction SilentlyContinue .\target\*.jar
+Remove-Item -Recurse -Force -ErrorAction SilentlyContinue .\target\classes
+
+# 2) Build fresh JAR
+.\mvnw.cmd clean package -DskipTests
+# Result: .\target\My-Portfolio-0.0.1-SNAPSHOT.jar
+
+# 3) Redeploy to App Engine (uses Cloud Build and staging bucket)
+gcloud config set project YOUR_GCP_PROJECT_ID
+# Ensure services are enabled (safe to re-run)
+gcloud services enable appengine.googleapis.com; gcloud services enable cloudbuild.googleapis.com; gcloud services enable storage.googleapis.com
+
+gcloud app deploy .\target\My-Portfolio-0.0.1-SNAPSHOT.jar --quiet
+
+# 4) Open your app
+gcloud app browse
+
+# 5) (Optional) Route traffic to the latest version if needed
+# First list versions
+gcloud app versions list
+# Then set traffic (replace VERSION_ID)
+gcloud app services set-traffic default --splits VERSION_ID=1
+```
+
+Optional cleanup of staging artifacts (advanced):
+```powershell
+# List buckets in your project
+gcloud storage buckets list
+# Typical App Engine staging bucket: gs://staging.YOUR_GCP_PROJECT_ID.appspot.com
+
+# List objects in staging bucket
+gcloud storage ls gs://staging.YOUR_GCP_PROJECT_ID.appspot.com/**
+
+# Delete older objects or everything (be careful!)
+gcloud storage rm -r gs://staging.YOUR_GCP_PROJECT_ID.appspot.com/**
+```
+
+If you still see bucket access errors, grant Storage permissions to the App Engine default service account:
+```powershell
+# Narrower role example (object-level):
+gcloud projects add-iam-policy-binding YOUR_GCP_PROJECT_ID `
+  --member="serviceAccount:YOUR_GCP_PROJECT_ID@appspot.gserviceaccount.com" `
+  --role="roles/storage.objectAdmin"
+```
+
 ## 2.1) App Engine env variables (for contact form)
 Set your Web3Forms UUID so the contact form can submit:
 ```powershell

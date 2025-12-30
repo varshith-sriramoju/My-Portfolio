@@ -1,15 +1,9 @@
 runtime: java17
-instance_class: F1
 service: default
+instance_class: F1
 
-handlers:
-  - url: /static
-    static_dir: static
-  - url: /favicon.ico
-    static_files: static/images/profile.jpg
-    upload: static/images/profile.jpg
-  - url: /.*
-    script: auto
+# Spring Boot serves static files from src/main/resources/static automatically.
+# No handlers block is needed for Java 17 Standard.
 
 automatic_scaling:
   min_instances: 0
@@ -18,6 +12,5 @@ automatic_scaling:
   target_throughput_utilization: 0.7
 
 env_variables:
-  # Set your real Web3Forms UUID here (no quotes or spaces)
+  # Web3Forms UUID (string). Quotes are fine; no spaces inside the UUID.
   WEB3FORMS_ACCESS_KEY: "bbf8ebfd-a4ae-4023-bb7e-24712ad6bac3"
-

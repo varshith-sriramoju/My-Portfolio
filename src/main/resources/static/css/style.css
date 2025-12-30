@@ -12,6 +12,15 @@
     --lavender-color: #E6E6FA;
 }
 
+/* Screen-reader only utility */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0);
+    white-space: nowrap; border: 0;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -44,21 +53,49 @@ a {
 /* Loading Animation */
 .loader-wrapper {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    /* Center loader robustly and pin to all edges */
+    inset: 0;                /* pin to all edges */
+    width: 100vw;            /* ensure full viewport width */
+    height: 100vh;           /* fallback */
+    height: 100svh;          /* Android small viewport */
+    height: 100dvh;          /* dynamic viewport */
+
+    /* Ensure full viewport coverage across mobile browsers */
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+    min-height: -webkit-fill-available;
+
+    /* Center perfectly on mobile */
+    display: grid !important;  /* override earlier flex */
+    place-items: center;        /* centers both axes */
+    place-content: center;      /* keep centered even with safe-area padding */
+    text-align: center;         /* fallback for inner text */
+
+    /* Prevent scroll bounce and touches while loading */
+    overscroll-behavior: contain;
+    touch-action: none;
+
     background: var(--darker-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     z-index: 9999;
+
+    /* Safe-area padding for devices with notches */
+    padding-top: calc(0px + env(safe-area-inset-top, 0px));
+    padding-right: calc(0px + env(safe-area-inset-right, 0px));
+    padding-bottom: calc(0px + env(safe-area-inset-bottom, 0px));
+    padding-left: calc(0px + env(safe-area-inset-left, 0px));
 }
 
 .loader {
     position: relative;
-    width: 200px;
-    height: 200px;
+
+    /* Fluid sizing on mobile while keeping desktop max */
+    width: clamp(120px, 40vw, 200px);
+    height: clamp(120px, 40vw, 200px);
+    aspect-ratio: 1 / 1; /* keep perfect circle on all screens */
+    margin: 0 auto; /* ensure horizontal centering */
+
+    /* Removed absolute-centering fallback to avoid offsets on Android */
 }
 
 .loader-text {
@@ -66,7 +103,7 @@ a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 4vw, 1.5rem);
     font-weight: 700;
     color: var(--light-color);
     z-index: 2;
@@ -79,17 +116,19 @@ a {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 4px solid transparent;
+    border: var(--loader-border, 4px) solid transparent;
     border-top-color: var(--primary-color);
     animation: spin 1.5s linear infinite;
+    will-change: transform; /* smoother animation on mobile GPUs */
 }
 
-.loader-circle:nth-child(2) {
+/* Fix ring targeting so color/speed apply despite other children (text/span) */
+.loader-circle:nth-of-type(2) {
     border-top-color: var(--secondary-color);
     animation-duration: 2s;
 }
 
-.loader-circle:nth-child(3) {
+.loader-circle:nth-of-type(3) {
     border-top-color: var(--accent-color);
     animation-duration: 2.5s;
 }
@@ -100,6 +139,16 @@ a {
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .loader-circle {
+        animation: none !important;
+    }
+    .scroll-indicator-dot {
+        animation: none !important;
     }
 }
 
@@ -227,6 +276,55 @@ a {
     color: var(--light-color);
     font-size: 1.5rem;
     cursor: pointer;
+}
+
+/* Simple hero-CTA group that wraps on mobile */
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .hero-buttons { justify-content: center; }
+}
+
+/* Lock body scroll when mobile menu is open */
+body.menu-open { overflow: hidden; }
+
+/* Off-canvas mobile navigation */
+@media (max-width: 992px) {
+    .mobile-menu-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: min(85vw, 320px);
+        background: rgba(5, 5, 16, 0.98);
+        backdrop-filter: blur(12px);
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        padding-top: 5rem; /* space for header */
+        z-index: 200;
+    }
+
+    .nav.is-open { transform: translateX(0); }
+
+    .nav-links {
+        flex-direction: column;
+        padding: 0 1.25rem 2rem;
+        gap: 1rem;
+    }
+
+    .nav-link { font-size: 1.05rem; }
 }
 
 /* Hero Section */
@@ -1299,38 +1397,274 @@ textarea.form-control { min-height: 150px; resize: vertical; }
     /* Navigation: stack links if visible, keep gaps small */
     .nav-links { flex-wrap: wrap; gap: 1rem; }
     .nav-link { padding: 0.25rem 0; }
-}
 
-@media (max-width: 576px) {
-    /* Hero: tighten typographic scale further for small phones */
-    .hero-title { font-size: 2rem; line-height: 1.15; }
-    .hero-subtitle { font-size: 1.05rem; }
-    .hero-description { font-size: 1rem; }
-}
+    /* General container padding for breathing room on mobile */
+    .container {
+        width: 92%;
+    }
 
-/* Project cards: allow natural height on mobile to avoid clipping */
-@media (max-width: 768px) {
-    .project-card { height: auto; }
-    .project-image { height: 200px; }
-}
+    /* Center most content blocks in mobile context */
+    .hero-content,
+    .section-title-container,
+    .projects-container,
+    .achievements-container,
+    .contact-container,
+    .footer-container {
+        justify-items: center;
+        text-align: center;
+    }
 
-/* Ensure section titles don’t overflow narrow screens */
-@media (max-width: 576px) {
-    .section-title {
+    /* Center buttons consistently */
+    .btn,
+    .project-links,
+    .social-links {
+        justify-content: center;
+    }
+
+    /* Make images fully responsive */
+    img,
+    .about-image,
+    .project-image img {
         max-width: 100%;
-        word-wrap: break-word;
-        white-space: normal;
+        height: auto;
+    }
+
+    /* Hero visual sizing tweak for smaller screens */
+    .hero-visual-inner {
+        width: 300px;
+        height: 300px;
+    }
+
+    /* Projects: ensure single column and proper spacing */
+    .projects-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .project-card {
+        height: auto;
+    }
+
+    .project-image {
+        height: auto;
+    }
+
+    /* Timeline: convert to clean single-column, hide center line & icon overlap */
+    .timeline::before {
+        display: none;
+    }
+
+    .timeline {
+        max-width: 640px;
+    }
+
+    .timeline-content {
+        width: 100% !important;
+        margin: 0 !important;
+        transform: none !important;
+        text-align: left;
+    }
+
+    .timeline-item {
+        margin-bottom: 1.25rem;
+    }
+
+    .timeline-date {
+        position: static;
+        display: inline-block;
+        margin: 0 0 0.75rem 0;
+    }
+
+    .timeline-icon {
+        display: none;
+    }
+
+    /* Achievements: tighter cards and centered */
+    .achievements-container {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        width: 100%;
+    }
+
+    .achievement-card {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    /* Contact: stack neatly and center items */
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact-links {
+        align-items: center;
+    }
+
+    .contact-link {
+        width: 100%;
+        max-width: 600px;
+        text-align: left;
+    }
+
+    .contact-form {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    /* Footer: stack columns to single and center content */
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-text,
+    .footer-links,
+    .footer-bottom {
+        text-align: center;
+    }
+
+    .footer-links {
+        align-items: center;
+    }
+
+    /* Footer: ensure social icons are centered and wrap on mobile */
+    .footer-social {
+        justify-content: center;
+        flex-wrap: wrap;
+        row-gap: 0.5rem;
+    }
+    /* Footer link columns: center content */
+    .footer-links-container {
+        text-align: center;
+        width: 100%;
+    }
+    .footer-links {
+        align-items: center;
+    }
+
+    /* Section spacing for mobile */
+    .section {
+        padding: 4rem 0;
     }
 }
 
-/* Contact links: prevent overflow and keep items readable */
 @media (max-width: 576px) {
-    .contact-link { flex-wrap: wrap; }
-    .contact-link-value { word-break: break-word; }
+    /* Extra-small devices fine tuning */
+    .hero-title {
+        font-size: 2.1rem;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Ensure central alignment for CTAs */
+    .social-links,
+    .project-links {
+        flex-wrap: wrap;
+        row-gap: 0.75rem;
+    }
+
+    .btn {
+        width: auto;
+        max-width: 100%;
+    }
+
+    /* Reduce card paddings for compact view */
+    .achievement-card,
+    .project-content,
+    .timeline-content,
+    .contact-form {
+        padding: 1.25rem;
+    }
+
+    /* Optional: slightly tighter spacing on very small screens */
+    .footer { padding: 3rem 0 1.5rem; }
+    .footer-social { gap: 0.75rem; }
 }
 
-/* Footer links: prevent long text overflow */
+
+/* Responsive refinements: mobile-first alignment fixes */
+/* Utility: center inline buttons without changing HTML */
+.btn,
+.project-link,
+.social-links,
+.footer-social {
+    /* keep existing styles */
+}
+
+/* Footer: reliable mobile alignment */
+@media (max-width: 768px) {
+    .footer-container { justify-items: center; text-align: center; }
+    .footer-brand { width: 100%; text-align: center; }
+    .footer-social { justify-content: center; flex-wrap: wrap; }
+    .footer-links { align-items: center; }
+    .footer-links-container { width: 100%; max-width: 560px; }
+    .footer-bottom { text-align: center; }
+}
+
+/* --- Footer: final mobile alignment rules (strong precedence) --- */
+@media (max-width: 768px) {
+    .footer-container { grid-template-columns: 1fr !important; }
+    .footer-brand, .footer-links-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        max-width: 560px;
+        margin: 0 auto;
+    }
+
+    .footer-logo { display: inline-block; text-align: center; }
+
+    .footer-social {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .footer-heading {
+        width: 100%;
+        text-align: center;
+    }
+    .footer-heading::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .footer-links {
+        width: 100%;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    .footer-link {
+        width: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 0.75rem;
+        border-radius: 8px;
+    }
+    /* Avoid layout shift on hover for touch devices */
+    .footer-link:hover { transform: none; }
+    .footer-link i { width: 1rem; text-align: center; }
+
+    .footer-bottom { text-align: center; }
+}
+
 @media (max-width: 576px) {
-    .footer-link { flex-wrap: wrap; }
+    .footer-logo { font-size: 1.6rem; }
+    .footer-text { font-size: 0.95rem; }
 }
 
