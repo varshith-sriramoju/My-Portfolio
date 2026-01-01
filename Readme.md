@@ -213,6 +213,46 @@ Verify:
 - View page source on the Contact page and ensure the hidden input value is your UUID (no spaces).
 - Submit a test message; Web3Forms should accept it if the key is valid.
 
+## 1.5) Run with Docker (Windows PowerShell)
+Use this if you prefer running the app in a container. This expects a Dockerfile in the project root.
+
+```powershell
+# From project root
+cd F:\1\My-Portfolio
+
+# Build image using the root-level Dockerfile
+# If your Dockerfile is named exactly "Dockerfile" and is in the root, the following works:
+docker build -t my-portfolio:latest .
+
+# Run the container mapping port 8080
+# The app will be accessible at http://localhost:8080
+docker run --rm -p 8080:8080 my-portfolio:latest
+
+# Open the app in your default browser
+Start-Process http://localhost:8080/
+```
+
+Tips:
+- The Dockerfile uses a multi-stage build (Maven + Java 17 JRE). If your project uses another Java version, update the base images and your `pom.xml` to match.
+- The build uses `mvn clean package -DskipTests` for speed. Remove `-DskipTests` if you want tests to run during image builds.
+- If your `target` folder contains multiple JARs, ensure the executable JAR is produced by `mvn package`. The COPY pattern `target/*.jar` will take the single built artifact.
+- Keep a `.dockerignore` at the root to reduce context size (example entries: `target/`, `.idea/`, `.git/`, `node_modules/`).
+
+Stop the container:
+```powershell
+# If run in the foreground, press Ctrl+C
+# Or find and stop by container name/ID
+# List containers
+docker ps
+# Stop by ID
+docker stop <CONTAINER_ID>
+```
+
+Troubleshooting:
+- If the container starts but the app isn’t reachable, confirm port mapping (`-p 8080:8080`) and that your app listens on 8080.
+- If build fails, check that `pom.xml` compiles on Java 17 or adjust the Dockerfile to your Java level.
+- If dependencies or build outputs aren’t found, ensure `pom.xml` and `src/` are copied correctly in the Dockerfile.
+
 ## 3) Update content and redeploy
 Edit files, then rebuild and deploy.
 - Templates: `src/main/resources/templates/` (e.g., `home.html`, fragments)
