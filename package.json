@@ -1,0 +1,8 @@
+{
+  "name": "my-portfolio-vercel",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build:vercel": "node scripts/build-static.js"
+  }
+}
