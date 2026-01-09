@@ -98,10 +98,39 @@ function buildResumePage() {
   const resumeTpl = path.join(TEMPLATES_DIR, 'resume.html');
   let resumeHtml = readFileSafe(resumeTpl);
   if (!resumeHtml) return; // optional
+
+  // Determine the resume PDF filename and a cache-busting version string
+  let pdfFileName = 'VarshithResume.pdf';
+  let versionSuffix = '';
+  try {
+    if (fs.existsSync(RESUME_DIR)) {
+      const pdfs = fs
+        .readdirSync(RESUME_DIR)
+        .filter((n) => n.toLowerCase().endsWith('.pdf'));
+      if (pdfs && pdfs.length > 0) {
+        // Prefer file that matches VarshithResume.pdf, else first
+        const preferred = pdfs.find((n) => n.toLowerCase() === 'varshithresume.pdf');
+        pdfFileName = preferred || pdfs[0];
+        const stat = fs.statSync(path.join(RESUME_DIR, pdfFileName));
+        // Use last modified time as version to bust caches
+        versionSuffix = `?v=${Math.floor(stat.mtimeMs)}`;
+      }
+    }
+  } catch (e) {
+    console.warn('Warning: unable to detect resume PDF details:', e.message);
+  }
+
+  const resumeUrlWithVersion = `/resume/${pdfFileName}${versionSuffix}`;
+
+  // Replace any thymeleaf-based links to point directly to the PDF
   resumeHtml = resumeHtml
-    .replace(/href=\"\/resume\?download=true\"/g, 'href="/resume/VarshithResume.pdf" download')
-    .replace(/href=\"\/resume\"/g, 'href="/resume/VarshithResume.pdf"')
-    .replace(/src=\"\/resume\"/g, 'src="/resume/VarshithResume.pdf"');
+    .replace(/href=\"\/resume\?download=true\"/g, `href="${resumeUrlWithVersion}" download`)
+    .replace(/href=\"\/resume\"/g, `href="${resumeUrlWithVersion}"`)
+    .replace(/src=\"\/resume\"/g, `src="${resumeUrlWithVersion}"`)
+    // Also normalize any direct references to VarshithResume.pdf without version
+    .replace(/href=\"\/resume\/VarshithResume\.pdf\"/g, `href="${resumeUrlWithVersion}"`)
+    .replace(/src=\"\/resume\/VarshithResume\.pdf\"/g, `src="${resumeUrlWithVersion}"`);
+
   resumeHtml = stripThymeleafAttributes(resumeHtml);
   fs.writeFileSync(path.join(OUT_DIR, 'resume.html'), resumeHtml, 'utf8');
 }
