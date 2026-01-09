@@ -50,8 +50,8 @@
                 </div>
             </nav>
 
-            <!-- Open the resume viewer page (/resume/view) for better mobile support -->
-            <a class="btn btn-primary" href="/resume/view" rel="noopener" aria-label="Open resume viewer">
+            <!-- Open the static resume viewer page (/resume.html) for Netlify -->
+            <a class="btn btn-primary" href="/resume.html" rel="noopener" aria-label="Open resume viewer">
                 Resume
             </a>
 
@@ -135,7 +135,7 @@
                     <a href="#contact" class="btn btn-outline">
                         Get In Touch
                     </a>
-                    <a class="btn btn-secondary" href="/resume.pdf" target="_blank" rel="noopener" aria-label="Open resume in a new tab">
+                    <a class="btn btn-secondary" href="/resume/VarshithResume.pdf" target="_blank" rel="noopener" aria-label="Open resume in a new tab">
                         Resume
                     </a>
                 </div>
@@ -551,7 +551,7 @@
                     </div>
 
                     <div class="contact-actions" style="margin-top:1rem; display:flex; justify-content:center;">
-                        <a class="btn btn-primary" href="/resume.pdf" target="_blank" rel="noopener">
+                        <a class="btn btn-primary" href="/resume/VarshithResume.pdf" target="_blank" rel="noopener">
                             Download Resume
                         </a>
                     </div>
@@ -560,7 +560,7 @@
                 <div class="contact-form">
                     <form id="contactForm" action="https://api.web3forms.com/submit" method="post" novalidate>
                         <!-- Read the key from configuration. If it is empty, validation in script.js will block submission. -->
-                        <input type="hidden" id="web3formsAccessKey" name="access_key">
+                        <input type="hidden" id="web3formsAccessKey" name="access_key" value="bbf8ebfd-a4ae-4023-bb7e-24712ad6bac3">
                         <input type="hidden" name="subject" value="Portfolio contact: Varshith Sriramoju">
                         <input type="checkbox" name="botcheck" style="display:none">
                         <input type="hidden" name="redirect" value="/">

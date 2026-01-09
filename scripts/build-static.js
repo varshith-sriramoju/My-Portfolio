@@ -70,12 +70,26 @@ function stripThymeleafAttributes(html) {
   return out;
 }
 
+function injectWeb3FormsAccessKey(html) {
+  const key = process.env.WEB3FORMS_ACCESS_KEY;
+  if (!key) {
+    console.warn('Warning: WEB3FORMS_ACCESS_KEY is not set. Contact form will not submit.');
+    return html;
+  }
+  // Add value attribute to the hidden access_key input
+  return html.replace(/(<input[^>]*id=\"web3formsAccessKey\"[^>]*)(>)/i, (match, pre, end) => {
+    if (/\svalue=\"[^\"]*\"/i.test(pre)) return match; // value already present
+    return `${pre} value=\"${key}\"${end}`;
+  });
+}
+
 function buildIndex() {
   const homePath = path.join(TEMPLATES_DIR, 'home.html');
   let homeHtml = readFileSafe(homePath);
   if (!homeHtml) throw new Error(`Cannot read ${homePath}`);
   homeHtml = inlineFragments(homeHtml);
   homeHtml = stripThymeleafAttributes(homeHtml);
+  homeHtml = injectWeb3FormsAccessKey(homeHtml);
   // Ensure asset paths point to /css, /js, /images (already in template)
   fs.writeFileSync(path.join(OUT_DIR, 'index.html'), homeHtml, 'utf8');
 }
