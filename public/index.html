@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Varshith - Professional Portfolio</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="/images/profile.jpg">
+  <link rel="shortcut icon" type="image/jpeg" href="/images/portfolio.png">
+  <!-- Styles and Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css?v=20251230.1">
+</head>
+<body>
+
+<!-- Loading Animation -->
+
+                <div class="loader-wrapper" role="status" aria-live="polite" aria-label="Loading" aria-busy="true" aria-describedby="loading-text">
+                    <div class="loader">
+                        <span id="loading-text" class="visually-hidden">Loading portfolio content</span>
+                        <div class="loader-text" aria-hidden="true">V.S.</div>
+                        <div class="loader-circle" aria-hidden="true"></div>
+                        <div class="loader-circle" aria-hidden="true"></div>
+                        <div class="loader-circle" aria-hidden="true"></div>
+                    </div>
+                </div>
+            
+
+<!-- Background Shapes -->
+<div class="floating-shape shape-1"></div>
+<div class="floating-shape shape-2"></div>
+<div class="floating-shape shape-3"></div>
+
+<!-- Header -->
+
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">V <span>S</span></div>
+
+            <nav id="site-nav" class="nav" role="navigation" aria-label="Primary">
+                <div class="nav-links">
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#achievements" class="nav-link">Achievements</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+            </nav>
+
+            <!-- Open the resume viewer page (/resume/view) for better mobile support -->
+            <a class="btn btn-primary" href="/resume/view" rel="noopener" aria-label="Open resume viewer">
+                Resume
+            </a>
+
+            <button
+                class="mobile-menu-btn"
+                aria-label="Open navigation menu"
+                aria-controls="site-nav"
+                aria-expanded="false"
+                type="button">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+
+    <script>
+        (function () {
+            const btn = document.querySelector('.mobile-menu-btn');
+            const nav = document.getElementById('site-nav');
+
+            if (!btn || !nav) return;
+
+            function openMenu() {
+                nav.classList.add('is-open');
+                document.body.classList.add('menu-open');
+                btn.setAttribute('aria-expanded', 'true');
+                btn.setAttribute('aria-label', 'Close navigation menu');
+            }
+
+            function closeMenu() {
+                nav.classList.remove('is-open');
+                document.body.classList.remove('menu-open');
+                btn.setAttribute('aria-expanded', 'false');
+                btn.setAttribute('aria-label', 'Open navigation menu');
+            }
+
+            function toggleMenu() {
+                const isOpen = nav.classList.contains('is-open');
+                isOpen ? closeMenu() : openMenu();
+            }
+
+            btn.addEventListener('click', toggleMenu);
+
+            // Close on link click (use event delegation)
+            nav.addEventListener('click', (e) => {
+                const link = e.target.closest('a');
+                if (link) closeMenu();
+            });
+
+            // Close on ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMenu();
+            });
+
+            // Close when clicking outside the panel
+            document.addEventListener('click', (e) => {
+                if (!nav.classList.contains('is-open')) return;
+                const isClickInsideNav = nav.contains(e.target);
+                const isClickOnButton = btn.contains(e.target);
+                if (!isClickInsideNav && !isClickOnButton) closeMenu();
+            });
+        })();
+    </script>
+
+
+<!-- Hero Section -->
+
+    <section class="hero" id="home">
+        <div class="hero-background"></div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="hero-greeting">Hi there, I'm</div>
+                <h1 class="hero-title"><span class="gradient-text">Varshith Sriramoju</span></h1>
+            <!--    <h2 class="hero-subtitle">Full Stack Java Developer | Cloud-Native Applications | Selenium Automation </h2> -->
+                <p class="hero-description">
+                    Full Stack Java Developer skilled in Spring Boot, React, REST APIs, and cloud-native deployments on Google Cloud Platform.Experienced with Docker, MySQL, secure authentication (JWT/OAuth), and automation testing using Selenium & Cucumber.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        View My Work <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-outline">
+                        Get In Touch
+                    </a>
+                    <a class="btn btn-secondary" href="/resume.pdf" target="_blank" rel="noopener" aria-label="Open resume in a new tab">
+                        Resume
+                    </a>
+                </div>
+                <div class="social-links">
+                    <a href="tel:+919381429861" class="social-link" aria-label="Phone">
+                        <i class="fas fa-phone-alt"></i>
+                    </a>
+                    <a href="mailto:sriramoju.varshith@outlook.com" class="social-link" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/varshith-sriramoju-58141221b/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/varshith-sriramoju" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-visual-inner">
+                    <div class="hero-visual-frame">
+                        <img
+                            src="/images/profile.jpg"
+                            alt="Portrait of Varshith Sriramoju"
+                            width="800"
+                            height="800"
+                            loading="lazy"
+                            decoding="async"
+                            sizes="(max-width: 576px) 240px, (max-width: 768px) 300px, 400px"
+                            style="width: 90%; height: 90%; object-fit: cover; border-radius: 15px;">
+                    </div>
+                    <div class="hero-visual-frame"></div>
+                    <div class="hero-visual-frame"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="scroll-indicator-line">
+                <div class="scroll-indicator-dot"></div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- About Section -->
+
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="section-title-container">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">
+                    A quick overview of my background, skills, and interests
+                </p>
+            </div>
+            <div class="about-container">
+                <div class="about-content">
+                    <div class="about-tagline">My Background</div>
+                    <h3 class="about-heading">Developer by Profession</h3>
+                    <p class="about-text">
+                        I’m Varshith Sriramoju, a software developer focused on building reliable, scalable backend and full-stack applications using Java, Spring Boot, Hibernate/JPA, and RESTful APIs. I develop cloud-ready solutions with Google Cloud Platform (Cloud Run, Cloud Storage), containerize services using Docker, and work with MySQL and Supabase PostgreSQL to build data-driven systems.
+                    </p>
+                    <p class="about-text">
+                        My experience spans frontend development with React, HTML, CSS, and JavaScript, secure authentication using JWT and OAuth, and automation testing with Selenium WebDriver, Cucumber (BDD), POM, JUnit, and Maven. I follow SDLC best practices, use Git/GitHub for collaboration, and focus on clean code, maintainability, performance, and practical problem-solving across the full stack.
+                    </p>
+
+                    <!-- Fixed alignment: single skills-container, no nesting or duplicates -->
+                    <div class="skills-container">
+
+                        <!-- Backend Core -->
+                        <div class="skill-item">
+                            <div class="skill-icon"><i class="fab fa-java"></i></div>
+                            <div class="skill-name">Java</div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-icon"><i class="fas fa-code"></i></div>
+                            <div class="skill-name">Spring Boot</div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-icon"><i class="fas fa-leaf"></i></div>
+                            <div class="skill-name">Hibernate / JPA</div>
+                        </div>
+
+                        <!-- Frontend -->
+                        <div class="skill-item">
+                            <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                            <div class="skill-name">HTML</div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+                            <div class="skill-name">CSS</div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-icon"><i class="fab fa-react"></i></div>
+                            <div class="skill-name">React</div>
+                        </div>
+
+                        <!-- Databases -->
+                        <div class="skill-item">
+                            <div class="skill-icon"><i class="fas fa-database"></i></div>
+                            <div class="skill-name">SQL</div>
+                        </div>
+
+                        <!-- Cloud & DevOps -->
+                        <div class="skill-item">
+                            <div class="skill-icon"><i class="fas fa-cloud"></i></div>
+                            <div class="skill-name">Google Cloud Platform</div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-icon"><i class="fab fa-docker"></i></div>
+                            <div class="skill-name">Docker</div>
+                        </div>
+
+                        <!-- Testing -->
+                        <div class="skill-item">
+                            <div class="skill-icon"><i class="fas fa-flask"></i></div>
+                            <div class="skill-name">Selenium</div>
+                        </div>
+
+                        <!-- Build & APIs -->
+                        <div class="skill-item">
+                            <div class="skill-icon"><i class="fa-solid fa-cubes"></i></div>
+                            <div class="skill-name">Maven</div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="skill-icon"><i class="fas fa-plug"></i></div>
+                            <div class="skill-name">REST API</div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="about-actions" style="margin-top:1rem;">
+                        <a class="btn btn-primary" href="/resume/VarshithResume.pdf" target="_blank" rel="noopener">
+                            Download Resume
+                        </a>
+                    </div>
+                </div>
+
+                <div class="about-visual">
+                    <div class="about-image-container">
+                        <div class="about-image-bg"></div>
+                        <img src="/images/hero-section.png" alt="About" class="about-image">
+                    </div>
+                    <div class="about-decorations">
+                        <div class="about-decoration"></div>
+                        <div class="about-decoration"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Projects Section -->
+
+    <section class="section projects" id="projects">
+        <div class="container">
+            <div class="section-title-container">
+                <h2 class="section-title">My Work</h2>
+                <p class="section-subtitle">
+                    Selected projects, videos, and courses in Java / Spring Boot
+                </p>
+            </div>
+
+            <div class="projects-container">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/images/SIMS.png" alt="Udemy course thumbnail" loading="lazy">
+                        <div class="project-overlay"></div>
+                        <div class="project-tags">
+                            <span class="project-tag">Spring Boot</span>
+                            <span class="project-tag">Spring Security</span>
+                            <span class="project-tag">Data JPA</span>
+                            <span class="project-tag">MySQL</span>
+                            <span class="project-tag">Google Cloud</span>
+                            <span class="project-tag">Docker</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Smart Inventory Management System(SIMS)</h3>
+                        <p class="project-description">
+                            Built a Spring Boot inventory system with secure auth, REST APIs, real-time analytics, and
+                            cloud deployment on Google Cloud Run and hosted from Netlify. </p>
+                        <div class="project-links">
+                            <a href="https://github.com/varshith-sriramoju/Smart-Inventory-Management-System-Spring-Boot"
+                               class="project-link" target="_blank" rel="noopener" aria-label="View code on GitHub">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <a href="https://smartinventorysystems.netlify.app/" class="project-link" target="_blank"
+                               rel="noopener" aria-label="Open Udemy course">
+                                Live Demo <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/images/GCP.png" alt="Udemy course thumbnail" loading="lazy">
+                        <div class="project-overlay"></div>
+                        <div class="project-tags">
+                            <span class="project-tag">Google Cloud Platform</span>
+                            <span class="project-tag">Google Drive API</span>
+                            <span class="project-tag">React.js</span>
+                            <span class="project-tag">MySQL</span>
+                            <span class="project-tag">Node.js</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Full Stack Google Cloud Video Testimonial Platform</h3>
+                        <p class="project-description">
+                            A full-stack web application to record video testimonials and upload them
+                            securely to a specified Google Drive using Google Cloud Platform(GCP). </p>
+                        <div class="project-links">
+                            <a href="https://github.com/varshith-sriramoju/Full-Stack-Google-Cloud-Video-Testimonial-Platform-"
+                               class="project-link" target="_blank" rel="noopener" aria-label="View code on GitHub">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <a href="https://videotetimonialtool.netlify.app/" class="project-link" target="_blank"
+                               rel="noopener" aria-label="Open Udemy course">
+                                Live Demo <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="/images/Selenium.png" alt="Udemy course thumbnail" loading="lazy">
+                        <div class="project-overlay"></div>
+                        <div class="project-tags">
+                            <span class="project-tag">Selenium WebDriver</span>
+                            <span class="project-tag">Cucumber</span>
+                            <span class="project-tag">Gherkin</span>
+                            <span class="project-tag">Junit</span>
+                            <span class="project-tag">Maven</span>
+                            <span class="project-tag">POM</span>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Selenium Cucumber Tests - Java + Selenium</h3>
+                        <p class="project-description">
+                            A maintainable Java-based E2E automation suite using Cucumber, Selenium WebDriver, tests are executed by Junit and reported as HTML/JSON. </p>
+                        <div class="project-links">
+                            <a href="https://github.com/varshith-sriramoju/SeleniumCucumberTests"
+                               class="project-link" target="_blank" rel="noopener" aria-label="View code on GitHub">
+                                <i class="fab fa-github"></i> View Code
+                            </a>
+                            <!--
+                            <a href="https://videotetimonialtool.netlify.app/" class="project-link" target="_blank"
+                               rel="noopener" aria-label="Open Udemy course">
+                                Live Demo <i class="fas fa-arrow-right"></i>
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Experience Section -->
+
+    <section class="section experience" id="experience">
+        <div class="container">
+            <div class="section-title-container">
+                <h2 class="section-title">Experience</h2>
+                <p class="section-subtitle">
+                    Resume-aligned roles, impact, and education highlights
+                </p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content highlight-box">
+                        <div class="timeline-date">March 2024 - June 2024</div>
+                        <h3 class="timeline-title">Full Stack Web Developer Intern</h3>
+                        <h4 class="timeline-subtitle">Pantech Solutions</h4>
+                        <p class="timeline-description">
+                            Built and deployed full-stack applications using Java, Spring Boot, Hibernate/JPA, REST APIs, React, HTML/CSS/JavaScript.Implemented JWT & Google OAuth security, managed MySQL and Supabase PostgreSQL, containerized with Docker, deployed onGoogle Cloud Platform’s Cloud Run, hosted on Netlify, and used Git/GitHub following SDLC.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="experience-actions">
+                <a class="btn btn-primary" href="/resume/VarshithResume.pdf" target="_blank" rel="noopener">
+                    View Resume
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Achievements Section
+
+    <section class="section achievements" id="achievements">
+        <div class="container">
+            <div class="section-title-container">
+                <h2 class="section-title">Achievements</h2>
+                <p class="section-subtitle">
+                    Recognitions and milestones I've reached along my journey
+                </p>
+            </div>
+            <div class="achievements-container">
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+                    <h3 class="achievement-title">22k Subscribers</h3>
+                    <p class="achievement-description">
+                        Built a thriving tech-focused YouTube channel with 22k+ subscribers by consistently creating high-quality tutorials, project walkthroughs, and career guidance content for aspiring developers and students.
+                    </p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="achievement-title">300+ bookings on Topmate</h3>
+                    <p class="achievement-description">
+                        Successfully mentored over 300 individuals through Topmate by offering personalized guidance on tech careers, coding, and project development — helping students and professionals grow with clarity and confidence.
+                    </p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fa-solid fa-film"></i>
+                    </div>
+                    <h3 class="achievement-title">Premium Courses on Udemy</h3>
+                    <p class="achievement-description">
+                        Created and published high-quality premium courses on Udemy, empowering thousands of students worldwide to learn Java, Spring Boot, and full-stack development with practical, real-world projects.
+                    </p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fa-solid fa-code-merge"></i>
+                    </div>
+                    <h3 class="achievement-title">GitHub Contributions</h3>
+                    <p class="achievement-description">
+                        Actively contributed to open-source projects on GitHub, shared reusable code libraries, and consistently maintained personal repositories featuring full-stack applications, helping developers learn and collaborate globally.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+-->
+<!-- Contact Section -->
+
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-title-container">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">
+                    Open to backend and full stack Java Spring Boot roles, collaboration, and freelance work.
+                </p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3 class="contact-heading">Let's build reliable services together</h3>
+                    <p class="contact-text">
+                        I focus on Java, Spring Boot, REST APIs, and data driven solutions. Reach out for roles, projects, or technical collaboration.
+                    </p>
+
+                    <div class="contact-links">
+                        <a href="mailto:sriramoju.varshith@outlook.com" class="contact-link">
+                            <div class="contact-link-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-link-text">
+                                <span class="contact-link-label">Email</span>
+                                <span class="contact-link-value">sriramoju.varshith@outlook.com</span>
+                            </div>
+                        </a>
+
+                        <a href="https://github.com/varshith-sriramoju" target="_blank" rel="noopener" class="contact-link">
+                            <div class="contact-link-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="contact-link-text">
+                                <span class="contact-link-label">GitHub</span>
+                                <span class="contact-link-value">varshith-sriramoju</span>
+                            </div>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/varshith-sriramoju-58141221b/" target="_blank" rel="noopener" class="contact-link">
+                            <div class="contact-link-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </div>
+                            <div class="contact-link-text">
+                                <span class="contact-link-label">LinkedIn</span>
+                                <span class="contact-link-value">varshith-sriramoju</span>
+                            </div>
+                        </a>
+
+                        <a href="tel:+919381429861" class="contact-link">
+                            <div class="contact-link-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-link-text">
+                                <span class="contact-link-label">Phone</span>
+                                <span class="contact-link-value">+91 9381429861</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="contact-actions" style="margin-top:1rem; display:flex; justify-content:center;">
+                        <a class="btn btn-primary" href="/resume.pdf" target="_blank" rel="noopener">
+                            Download Resume
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form id="contactForm" action="https://api.web3forms.com/submit" method="post" novalidate>
+                        <!-- Read the key from configuration. If it is empty, validation in script.js will block submission. -->
+                        <input type="hidden" id="web3formsAccessKey" name="access_key">
+                        <input type="hidden" name="subject" value="Portfolio contact: Varshith Sriramoju">
+                        <input type="checkbox" name="botcheck" style="display:none">
+                        <input type="hidden" name="redirect" value="/">
+
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" class="form-control" name="name" placeholder="varshith sriramoju" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" id="email" class="form-control" name="email" placeholder="sriramoju.varshith@outlook.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea id="message" class="form-control" name="message" placeholder="How can I help you?" rows="5" required></textarea>
+                        </div>
+
+                        <div id="formError" style="color:#ff6b6b; margin-bottom:0.75rem; display:none; text-align:center;"></div>
+
+                        <button type="submit" class="btn btn-primary" style="display:block; margin:0 auto;">
+                            Send Message <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Footer -->
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <a href="#home" class="footer-logo">Varshith Sriramoju</a>
+                    <p class="footer-text">
+                        Building scalable, secure full-stack applications with Java, Spring Boot, and Google Cloud—focused on clean code, performance, and real-world impact.
+                    </p>
+                    <div class="footer-social">
+                        <a href="tel:+919381429861" class="social-link" aria-label="Phone">
+                            <i class="fas fa-phone-alt"></i>
+                        </a>
+                        <a href="mailto:sriramoju.varshith@outlook.com" class="social-link" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/varshith-sriramoju-58141221b/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/varshith-sriramoju" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="#home" class="footer-link"><i class="fas fa-chevron-right"></i> Home</a>
+                        <a href="#about" class="footer-link"><i class="fas fa-chevron-right"></i> About</a>
+                        <a href="#projects" class="footer-link"><i class="fas fa-chevron-right"></i> My Work</a>
+                        <a href="#experience" class="footer-link"><i class="fas fa-chevron-right"></i> Experience</a>
+                        <a href="#achievements" class="footer-link"><i class="fas fa-chevron-right"></i> Achievements</a>
+                        <a href="#contact" class="footer-link"><i class="fas fa-chevron-right"></i> Contact</a>
+                    </div>
+                </div>
+
+                <div class="footer-links-container">
+                    <h3 class="footer-heading">Resources</h3>
+                    <div class="footer-links">
+                        <a href="https://github.com/varshith-sriramoju" target="_blank" rel="noopener" class="footer-link">
+                            <i class="fas fa-chevron-right"></i> GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/varshith-sriramoju-58141221b/" target="_blank" rel="noopener" class="footer-link">
+                            <i class="fas fa-chevron-right"></i> LinkedIn
+                        </a>
+                        <a href="mailto:sriramoju.varshith@outlook.com" class="footer-link">
+                            <i class="fas fa-chevron-right"></i> Email
+                        </a>
+                        <a href="/resume/VarshithResume.pdf" target="_blank" rel="noopener" class="footer-link">
+                            <i class="fas fa-chevron-right"></i> Resume
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Varshith Sriramoju. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script src="/js/script.js?v=20251230.1"></script>
+</body>
+</html>

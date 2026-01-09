@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Resume</title>
+    <link rel="stylesheet" href="/css/style.css?v=20251230" />
+    <style>
+        .resume-container { max-width: 1000px; margin: 6rem auto 2rem; padding: 0 1rem; }
+        .resume-actions { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem; }
+        .resume-frame { width: 100%; height: 80vh; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; }
+        .resume-fallback { text-align: center; margin-top: 1rem; color: var(--text-light); }
+        @media (max-width: 768px) {
+            .resume-frame { height: 70vh; }
+        }
+        @media (max-width: 576px) {
+            .resume-container { margin-top: 7rem; }
+            .resume-frame { height: 65vh; }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <div class="resume-actions">
+            <a class="btn btn-primary" href="/resume/VarshithResume.pdf" download target="_blank" rel="noopener">Download PDF</a>
+            <a class="btn btn-outline" href="/resume/VarshithResume.pdf" target="_blank" rel="noopener">Open Inline</a>
+        </div>
+        <iframe class="resume-frame" src="/resume/VarshithResume.pdf" title="Resume PDF" allow="fullscreen"></iframe>
+        <div class="resume-fallback">
+            If the PDF doesn't render on your device, use the "Download PDF" button above.
+        </div>
+    </div>
+</body>
+</html>
+
