@@ -57,7 +57,7 @@ gcloud projects add-iam-policy-binding YOUR_GCP_PROJECT_ID `
   --role="roles/storage.admin"
 
 # Or create your own staging bucket and use it
-$bucket="YOUR-UNIQUE-STAGING-BUCKET" 
+$bucket="YOUR-UNIQUE-STAGING-BUCKET"
 gsutil mb -l us-central1 gs://$bucket
 gsutil iam ch serviceAccount:YOUR_GCP_PROJECT_ID@appspot.gserviceaccount.com:roles/storage.objectAdmin gs://$bucket
 gcloud app deploy .\target\My-Portfolio-0.0.1-SNAPSHOT.jar --bucket=$bucket
